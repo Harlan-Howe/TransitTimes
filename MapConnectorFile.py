@@ -295,7 +295,7 @@ class MapConnector:
     def perform_search(self) -> List[Edge_Data]:
         """
         finds the shortest path from self.first_city_id to self.second_city_id.
-        Whether this is the shortest driving distance or the shortest time duration
+        Whether this is the shortest time duration or the shortest driving distance
         is the programmer's choice. (For testing, use distance.)
         :return: a list of EdgeData's (like what you received in describePath) that represents the path,
         or None, if no such path can be found.
