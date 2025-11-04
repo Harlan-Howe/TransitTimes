@@ -35,7 +35,7 @@ class MapConnector:
         self.vertices: List[City_Data] = []  # an array of 5-element arrays ("City_Data"s)
         self.edges: List[Edge_Data] = []  # an array of 4-element arrays ("Edge_Data"s). Remember that Edge_Data is an
         # abbreviation for a Tuple of (int, int, float, float), corresponding to
-        # (cityA_1d, cityB_id, distance, time).
+        # (cityA_1d, cityB_id, time, distance).
 
         self.load_city_data()
         self.load_connection_data()
@@ -270,7 +270,7 @@ class MapConnector:
         for e in path:
             c1 = self.vertices[e[0]]
             c2 = self.vertices[e[1]]
-            logging.info(f"{c1[1]}, {c1[2]} <--> {c2[1]}, {c2[2]}\t{e[2]}meters\t{e[3]}seconds.")
+            logging.info(f"{c1[1]}, {c1[2]} <--> {c2[1]}, {c2[2]}\t{e[2]}seconds\t{e[3]}meters.")
 
         result = "Path found:\n"
 
