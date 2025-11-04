@@ -22,6 +22,16 @@ class ClickHandlerMode(Enum):
     SEARCHING = 2
     DONE = 3
 
+CITY_ID = 0
+CITY_NAME = 1
+STATE_NAME = 2
+CITY_X = 3
+CITY_Y = 4
+
+EDGE_CITY_ID_A = 0
+EDGE_CITY_ID_B = 1
+EDGE_TIME = 2
+EDGE_DISTANCE = 3
 
 class MapConnector:
 
@@ -165,8 +175,7 @@ class MapConnector:
                 self.draw_city(map_copy, city)
         if draw_connections:
             for edge in self.edges:
-                self.draw_edge(map_copy, int(edge[0]), int(edge[1]))  # note edge is a list of strings,
-                # so we have to cast to ints.
+                self.draw_edge(map_copy, edge[EDGE_CITY_ID_A], edge[EDGE_CITY_ID_B])
         return map_copy
 
     @staticmethod  # does not require or change any self.* variables or methods.
@@ -180,7 +189,7 @@ class MapConnector:
         :param size: the radius of the dot for the city
         :return: None
         """
-        cv2.circle(img=map_to_draw_on, center=(int(city[3]), int(city[4])), radius=size, color=color,
+        cv2.circle(img=map_to_draw_on, center=(int(city[CITY_X]), int(city[CITY_Y])), radius=size, color=color,
                    thickness=-1)
 
     def draw_edge(self, map_to_draw_on: numpy.ndarray, city1_id: int, city2_id: int,
@@ -194,8 +203,8 @@ class MapConnector:
         :param thickness: number of pixels wide to draw string
         :return: None
         """
-        point1 = (int(self.vertices[city1_id][3]), int(self.vertices[city1_id][4]))
-        point2 = (int(self.vertices[city2_id][3]), int(self.vertices[city2_id][4]))
+        point1 = (int(self.vertices[city1_id][CITY_X]), int(self.vertices[city1_id][CITY_Y]))
+        point2 = (int(self.vertices[city2_id][CITY_X]), int(self.vertices[city2_id][CITY_Y]))
 
         # Draw the line. Note color is BGR, 0-255.
         cv2.line(img=map_to_draw_on, pt1=point1, pt2=point2, color=color, thickness=thickness)
@@ -270,7 +279,8 @@ class MapConnector:
         for e in path:
             c1 = self.vertices[e[0]]
             c2 = self.vertices[e[1]]
-            logging.info(f"{c1[1]}, {c1[2]} <--> {c2[1]}, {c2[2]}\t{e[2]}seconds\t{e[3]}meters.")
+            logging.info(f"{c1[CITY_NAME]}, {c1[STATE_NAME]} <--> {c2[CITY_NAME]}, {c2[STATE_NAME]}\t"
+                         f"{e[EDGE_TIME]}seconds\t{e[EDGE_DISTANCE]}meters.")
 
         result = "Path found:\n"
 
@@ -288,7 +298,7 @@ class MapConnector:
         """
         result = []
         for edge in self.edges:
-            if edge[0] == city or edge[1] == city:
+            if edge[EDGE_CITY_ID_A] == city or edge[EDGE_CITY_ID_B] == city:
                 result.append(edge)
         return result
 
@@ -322,7 +332,7 @@ class MapConnector:
         which_city = None
         counter = 0
         for city in self.vertices:
-            d_squared = (pos[0] - int(city[3])) ** 2 + (pos[1] - int(city[4])) ** 2
+            d_squared = (pos[0] - int(city[CITY_X])) ** 2 + (pos[1] - int(city[CITY_Y])) ** 2
             if d_squared < dist:
                 dist = d_squared
                 which_city = counter
@@ -349,8 +359,8 @@ class MapConnector:
                 # and display the selected city on screen.
                 self.first_city_id = self.find_closest_city_to_clicked_point((x, y))
                 cv2.putText(img=self.current_map,
-                            text="from: {0}, {1}".format(self.vertices[self.first_city_id][1],
-                                                         self.vertices[self.first_city_id][2]),
+                            text=f"from: {self.vertices[self.first_city_id][CITY_NAME]}, "
+                                 f"{self.vertices[self.first_city_id][STATE_NAME]}",
                             org=(0, 400),
                             fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                             fontScale=0.5,
@@ -369,8 +379,8 @@ class MapConnector:
                 # and display the selected city on screen.
                 self.second_city_id = self.find_closest_city_to_clicked_point((x, y))
                 cv2.putText(img=self.current_map,
-                            text="to: {0}, {1}".format(self.vertices[self.second_city_id][1],
-                                                       self.vertices[self.second_city_id][2]),
+                            text=f"to: {self.vertices[self.second_city_id][CITY_NAME]},"
+                                 f" {self.vertices[self.second_city_id][STATE_NAME]}",
                             org=(0, 420),
                             fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                             fontScale=0.5,
