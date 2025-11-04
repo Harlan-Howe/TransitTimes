@@ -13,7 +13,19 @@ logging.basicConfig(level=logging.INFO)  # simple version to the output console
 #                     datefmt="%H:%M:%S %p --- ")  # more robust, sent to a file cNode = Tuple[int, T]
 
 City_Data = Tuple[int, str, str, int, int]
+# Index constants for City_Data
+CITY_ID = 0
+CITY_NAME = 1
+STATE_NAME = 2
+CITY_X = 3
+CITY_Y = 4
+
 Edge_Data = Tuple[int, int, float, float]
+# Index constants for Edge_Data
+EDGE_CITY_ID_A = 0
+EDGE_CITY_ID_B = 1
+EDGE_TIME = 2
+EDGE_DISTANCE = 3
 
 
 class ClickHandlerMode(Enum):
@@ -22,16 +34,6 @@ class ClickHandlerMode(Enum):
     SEARCHING = 2
     DONE = 3
 
-CITY_ID = 0
-CITY_NAME = 1
-STATE_NAME = 2
-CITY_X = 3
-CITY_Y = 4
-
-EDGE_CITY_ID_A = 0
-EDGE_CITY_ID_B = 1
-EDGE_TIME = 2
-EDGE_DISTANCE = 3
 
 class MapConnector:
 
