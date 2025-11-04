@@ -99,8 +99,8 @@ class MapConnector:
                 #    edge_id(unused),
                 #    node1_id,
                 #    node2_id,
-                #    distance_in_meters,
-                #    travel_time_in_seconds
+                #    travel_time_in_seconds,
+                #    distance_in_meters
                 # -----------------------------------------
                 # TODO #0: You should write this portion of this method:
                 #
