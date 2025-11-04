@@ -312,7 +312,7 @@ class MapConnector:
     # =========================================================================================
 
     # ============================================================================ MOUSE METHODS
-    def find_closest_city(self, pos: Tuple[int, int]) -> int:
+    def find_closest_city_to_clicked_point(self, pos: Tuple[int, int]) -> int:
         """
         identifies which city is closest to the coordinate given.
         :param pos: the coordinate of interest (x,y)
@@ -347,7 +347,7 @@ class MapConnector:
                 # we were waiting for the user to click on the first city, and she has just done so.
                 # identify which city was selected, set the self.first_city_id variable
                 # and display the selected city on screen.
-                self.first_city_id = self.find_closest_city((x, y))
+                self.first_city_id = self.find_closest_city_to_clicked_point((x, y))
                 cv2.putText(img=self.current_map,
                             text="from: {0}, {1}".format(self.vertices[self.first_city_id][1],
                                                          self.vertices[self.first_city_id][2]),
@@ -367,7 +367,7 @@ class MapConnector:
                 # we were waiting for the user to click on the second city, and she has just done so.
                 # identify which city was selected, set the self.second_city_id variable
                 # and display the selected city on screen.
-                self.second_city_id = self.find_closest_city((x, y))
+                self.second_city_id = self.find_closest_city_to_clicked_point((x, y))
                 cv2.putText(img=self.current_map,
                             text="to: {0}, {1}".format(self.vertices[self.second_city_id][1],
                                                        self.vertices[self.second_city_id][2]),
