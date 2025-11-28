@@ -43,7 +43,7 @@ class MyTestCase(unittest.TestCase):
         self.connector.first_city_id = 96
         self.connector.second_city_id = 95
         expected = ("Path found:\n• Madison, WI\n• Minneapolis, MN\n• Bismarck, ND\n• Helena, MT\n• Seattle, WA\n"
-                    "total_distance = 103318.0	total_time = 3053590.0")
+                    "total_distance = 3053590.0	total_time = 103318.0")
         print(f"You are starting at city #{self.connector.first_city_id}, which is "
               f"{self.connector.vertices[self.connector.first_city_id]}.")
         print("You're being given a path that includes the following: \n\tCity1\tCity2\tdist\ttime")
@@ -76,7 +76,7 @@ class MyTestCase(unittest.TestCase):
         self.connector.second_city_id = 65
         expected = ("Path found:\n• Portland, OR\n• Boise, ID\n• Salt Lake City, UT\n• Cheyenne, WY\n• Lincoln, NE\n"
                     "• Omaha, NE\n• Des Moines, IA\n• Chicago, IL\n• Toledo, OH\n• Cleveland, OH\n• Buffalo, NY\n"
-                    "• Syracuse, NY\ntotal_distance = 156894.0	total_time = 4640760.0")
+                    "• Syracuse, NY\ntotal_distance = 4640760.0	total_time = 156894.0")
 
         print(f"You are starting at city #{self.connector.first_city_id}, which is "
               f"{self.connector.vertices[self.connector.first_city_id]}.")
@@ -110,7 +110,7 @@ class MyTestCase(unittest.TestCase):
         self.connector.first_city_id = 58
         self.connector.second_city_id = 4
         expected = ("Path found:\n• Albuquerque, NM\n• Oklahoma City, OK\n• Little Rock, AR\n• Dallas, TX\n"
-                    "• Fort Worth, TX\n• El Paso, TX\n• Tucson, AZ\ntotal_distance = 112256.0	total_time = 3462014.0")
+                    "• Fort Worth, TX\n• El Paso, TX\n• Tucson, AZ\ntotal_distance = 3462014.0	total_time = 112256.0")
         print(f"You are starting at city #{self.connector.first_city_id}, which is "
               f"{self.connector.vertices[self.connector.first_city_id]}.")
         print("You're being given a path that includes the following: \n\tCity1\tCity2\tdist\ttime")
@@ -161,7 +161,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(expected_path, result, "Short path did not match expected.")
 
     def test_8_find_medium_path(self):
-        edge_nums = [3, 73, 35, 36, 31]
+        edge_nums = [0, 1, 7, 76, 71, 36, 31]
         expected_path = []
         for num in edge_nums:
             expected_path.append((self.connector.edges[num]))
@@ -172,7 +172,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(expected_path, result, "Medium path did not match expected.")
 
     def test_9_find_long_path(self):
-        edge_nums = [121, 118, 151, 156, 161, 175, 174, 189, 186, 188, 193]
+        edge_nums = [121, 118, 151, 155, 158, 162, 175, 174, 189, 186, 188, 193]
         expected_path = []
         for num in edge_nums:
             expected_path.append((self.connector.edges[num]))
